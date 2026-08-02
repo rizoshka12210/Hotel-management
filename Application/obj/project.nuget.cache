@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "kJ3s/IXP16I=",
+  "dgSpecHash": "m4KpqxHivhE=",
   "success": true,
   "projectFilePath": "/Users/rizoakramov/Desktop/HotelManagementSystem/Application/Application.csproj",
   "expectedPackageFiles": [
     "/Users/rizoakramov/.nuget/packages/bcrypt.net-next/4.2.0/bcrypt.net-next.4.2.0.nupkg.sha512",
-    "/Users/rizoakramov/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.14/microsoft.aspnetcore.app.ref.9.0.14.nupkg.sha512",
-    "/Users/rizoakramov/.nuget/packages/microsoft.netcore.app.ref/9.0.14/microsoft.netcore.app.ref.9.0.14.nupkg.sha512"
+    "/Users/rizoakramov/.nuget/packages/fluentvalidation/12.1.1/fluentvalidation.12.1.1.nupkg.sha512",
+    "/Users/rizoakramov/.nuget/packages/microsoft.netcore.app.ref/9.0.14/microsoft.netcore.app.ref.9.0.14.nupkg.sha512",
+    "/Users/rizoakramov/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.14/microsoft.aspnetcore.app.ref.9.0.14.nupkg.sha512"
   ],
   "logs": []
 }

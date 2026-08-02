@@ -1,16 +1,17 @@
-namespace Infrastructure.Services;
-using BCrypt.Net;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Application.DTOs.Auth;
 public class AuthService : IAuthService
 {
 
     private readonly AppDbContext _context;
 
+    private readonly IJwtService _jwtService;
 
-    public AuthService(AppDbContext context)
+    public AuthService(AppDbContext context,IJwtService jwtService)
     {
         _context = context;
+        _jwtService = jwtService;
     }
 
 
@@ -35,7 +36,7 @@ public class AuthService : IAuthService
 
             Email = dto.Email,
 
-            PasswordHash = BCrypt.HashPassword(dto.Password),
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
 
             RoleId = 2
         };
@@ -56,6 +57,7 @@ public class AuthService : IAuthService
     {
 
         var user = await _context.Users
+            .Include(x => x.Role)
             .FirstOrDefaultAsync(x => x.Email == dto.Email);
 
 
@@ -67,7 +69,7 @@ public class AuthService : IAuthService
 
 
 
-        var passwordValid = BCrypt.Verify(
+        var passwordValid = BCrypt.Net.BCrypt.Verify(
             dto.Password,
             user.PasswordHash
         );
@@ -80,7 +82,7 @@ public class AuthService : IAuthService
 
 
 
-        return "LOGIN_SUCCESS";
+        return _jwtService.GenerateToken(user);
     }
 
 }
