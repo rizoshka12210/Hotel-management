@@ -13,5 +13,7 @@ public class User : BaseEntity
 
     public List<RefreshToken> RefreshTokens { get; set; } = new();
 
+    public List<Booking> Bookings { get; set; } = new();
+
     public bool IsActive { get; set; } = true;
 }

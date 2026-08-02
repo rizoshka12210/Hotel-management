@@ -20,6 +20,9 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IBookingService, BookingService>();
+        services.AddScoped<IHotelService, HotelService>();
+        services.AddScoped<IRoomService, RoomService>();
 
         return services;
     }
