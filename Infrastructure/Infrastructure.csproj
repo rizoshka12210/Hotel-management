@@ -15,11 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-<<<<<<< HEAD
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
-=======
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
->>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />

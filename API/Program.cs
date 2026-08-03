@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 using API.Middleware;
-=======
->>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -10,11 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-<<<<<<< HEAD
 builder.Services.AddInfrastructure(
     builder.Configuration
 );
-=======
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -36,7 +31,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ))
         };
     });
->>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -97,16 +91,8 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-<<<<<<< HEAD
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-=======
 app.UseSwagger();
 app.UseSwaggerUI();
->>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 
 app.UseHttpsRedirection();
 
