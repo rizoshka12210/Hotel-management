@@ -85,4 +85,20 @@ public class AuthService : IAuthService
         return _jwtService.GenerateToken(user);
     }
 
+    public async Task<bool> Logout(string refreshToken)
+    {
+        var token = await _context.RefreshTokens
+            .FirstOrDefaultAsync(x => x.Token == refreshToken);
+
+        if (token == null)
+        {
+            return false;
+        }
+
+        token.IsRevoked = true;
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
