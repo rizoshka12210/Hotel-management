@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -8,6 +9,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services;
+=======
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 
 public class JwtService : IJwtService
 {
@@ -18,6 +27,7 @@ public class JwtService : IJwtService
         _configuration = configuration;
     }
 
+<<<<<<< HEAD
     public string GenerateAccessToken(User user)
     {
         var key = _configuration["Jwt:Key"]!;
@@ -27,11 +37,16 @@ public class JwtService : IJwtService
         var expirationMinutes =
             int.Parse(_configuration["Jwt:AccessTokenExpirationMinutes"]!);
 
+=======
+    public string GenerateToken(User user)
+    {
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Email, user.Email),
+<<<<<<< HEAD
             new Claim(ClaimTypes.Role, user.Role?.Name ?? "User")
         };
 
@@ -51,11 +66,33 @@ public class JwtService : IJwtService
             audience: audience,
             claims: claims,
             expires: expiration,
+=======
+            new Claim(ClaimTypes.Role, user.Role.Name)
+        };
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]!)
+        );
+
+        var credentials = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256
+        );
+
+        var token = new JwtSecurityToken(
+            issuer: _configuration["JwtSettings:Issuer"],
+            audience: _configuration["JwtSettings:Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(
+                Convert.ToDouble(_configuration["JwtSettings:ExpireMinutes"])
+            ),
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
             signingCredentials: credentials
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+<<<<<<< HEAD
 
     public string GenerateRefreshToken()
     {
@@ -71,4 +108,6 @@ public class JwtService : IJwtService
 
         return DateTime.UtcNow.AddMinutes(expirationMinutes);
     }
+=======
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 }

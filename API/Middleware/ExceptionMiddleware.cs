@@ -1,7 +1,10 @@
 using System.Text.Json;
 
+<<<<<<< HEAD
 namespace API.Middleware;
 
+=======
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
@@ -17,6 +20,7 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
+<<<<<<< HEAD
         catch (Exception ex)
         {
             await HandleExceptionAsync(context, ex);
@@ -49,4 +53,18 @@ public class ExceptionMiddleware
         await context.Response.WriteAsync(
             JsonSerializer.Serialize(response));
     }
+=======
+        catch (Exception)
+        {
+            context.Response.StatusCode = 500;
+            context.Response.ContentType = "application/json";
+
+            await context.Response.WriteAsync(
+                JsonSerializer.Serialize(new
+                {
+                    Message = "Internal Server Error"
+                }));
+        }
+    }
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 }

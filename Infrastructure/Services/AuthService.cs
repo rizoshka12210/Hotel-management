@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using Application.DTOs.Auth;
 using Application.Interfaces;
 using Domain.Entities;
@@ -6,14 +7,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services;
 
+=======
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Application.DTOs.Auth;
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
 public class AuthService : IAuthService
 {
     private readonly AppDbContext _context;
     private readonly IJwtService _jwtService;
 
+<<<<<<< HEAD
     public AuthService(
         AppDbContext context,
         IJwtService jwtService)
+=======
+    private readonly IJwtService _jwtService;
+
+    public AuthService(AppDbContext context,IJwtService jwtService)
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
     {
         _context = context;
         _jwtService = jwtService;
@@ -33,7 +45,13 @@ public class AuthService : IAuthService
         {
             FullName = dto.FullName,
             Email = dto.Email,
+<<<<<<< HEAD
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+=======
+
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
             RoleId = 2
         };
 
@@ -114,13 +132,24 @@ public class AuthService : IAuthService
         var token = await _context.RefreshTokens
             .FirstOrDefaultAsync(x => x.Token == refreshToken);
 
+<<<<<<< HEAD
         if (token == null)
+=======
+        var user = await _context.Users
+            .Include(x => x.Role)
+            .FirstOrDefaultAsync(x => x.Email == dto.Email);
+
+
+
+        if(user == null)
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
         {
             return;
         }
 
         token.IsRevoked = true;
 
+<<<<<<< HEAD
         await _context.SaveChangesAsync();
     }
 
@@ -151,5 +180,39 @@ public class AuthService : IAuthService
             RefreshToken = refreshToken,
             ExpiresAt = _jwtService.GetAccessTokenExpiration()
         };
+=======
+
+        var passwordValid = BCrypt.Net.BCrypt.Verify(
+            dto.Password,
+            user.PasswordHash
+        );
+
+
+        if(!passwordValid)
+        {
+            return null;
+        }
+
+
+
+        return _jwtService.GenerateToken(user);
+    }
+
+    public async Task<bool> Logout(string refreshToken)
+    {
+        var token = await _context.RefreshTokens
+            .FirstOrDefaultAsync(x => x.Token == refreshToken);
+
+        if (token == null)
+        {
+            return false;
+        }
+
+        token.IsRevoked = true;
+
+        await _context.SaveChangesAsync();
+
+        return true;
+>>>>>>> 30830c824e952ef5aa876fbd8e52ff9f4eb6ef25
     }
 }
