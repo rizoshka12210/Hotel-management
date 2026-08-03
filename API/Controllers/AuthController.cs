@@ -1,14 +1,15 @@
 using Application.DTOs.Auth;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+
+namespace API.Controllers;
 
 
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-
     private readonly IAuthService _authService;
-
 
     public AuthController(IAuthService authService)
     {
@@ -21,10 +22,10 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register(RegisterDto dto)
     {
 
-        var result = await _authService.Register(dto);
+        var result = await _authService.RegisterAsync(dto);
 
 
-        if(!result)
+        if(result == null)
         {
             return BadRequest("User already exists");
         }
@@ -40,7 +41,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(LoginDto dto)
     {
 
-        var result = await _authService.Login(dto);
+        var result = await _authService.LoginAsync(dto);
 
 
         if(result == null)

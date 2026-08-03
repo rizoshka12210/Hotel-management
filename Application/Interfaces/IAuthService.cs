@@ -1,6 +1,8 @@
 using Application.DTOs.Auth;
 public interface IAuthService
 {
-    Task<bool> Register(RegisterDto dto);
-    Task<string?> Login(LoginDto dto);
+    Task<AuthResponseDto> RegisterAsync(RegisterDto dto);
+    Task<AuthResponseDto> LoginAsync(LoginDto dto);
+    Task<AuthResponseDto> RefreshTokenAsync(RefreshTokenDto dto);
+    Task LogoutAsync(string refreshToken);
 }
