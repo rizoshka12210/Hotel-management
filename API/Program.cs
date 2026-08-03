@@ -60,6 +60,8 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
