@@ -9,7 +9,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-
+        
 
         services.AddDbContext<AppDbContext>(options =>
         {
@@ -21,6 +21,9 @@ public static class DependencyInjection
 
         });
 
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IUserProfileService, UserProfileService>();
 
         return services;
     }
